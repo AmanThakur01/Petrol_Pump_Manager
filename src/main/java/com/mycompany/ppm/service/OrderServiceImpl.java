@@ -42,14 +42,14 @@ public class OrderServiceImpl extends BaseDAO implements OrderService {
     public Order findByfId(Integer oId) {
         return orderDAO.findByfId(oId);
     }
-
-    @Override
+    
+@Override
     public List<Order> findByDate(Date date, Date date1) {
         String sql2 = "SELECT `orderid`, `date`, `quantity`, `rate`, `total`, `fuelid` FROM `order` WHERE `date` BETWEEN '" + date + "' AND '" + date1 + "'";
 
         return getJdbcTemplate().query(sql2, new OrderRowMapper());
     }
-
+    
     @Override
     public List<Order> findByDay(Date date) {
         String sql = "SELECT `orderid`, `date`, `quantity`, `rate`, `total`, `fuelid` FROM `order` WHERE date = ?";

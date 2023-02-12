@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.ppm.domain;
 
 /**
@@ -9,11 +5,22 @@ package com.mycompany.ppm.domain;
  * @author amanm
  */
 public class Sales{
+    String fuel;
     Integer qty;
     String year;
     String day;
     String month;
     String total;
+
+    public String getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(String fuel) {
+        this.fuel = fuel;
+    }
+
+    
 
     public String getDay() {
         return day;

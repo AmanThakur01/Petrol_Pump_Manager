@@ -9,6 +9,36 @@
         <title>Analysis Report</title>
         <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>  
         <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<!--        <script>
+            $(document).ready(function () {
+                $("#filterVal2").hide();
+                $("#filterVal").hide();
+                $("#reportChart6").hide();
+                $("#reportChart5").hide();
+                $("#fil").click(function () {
+                    var selVal = $("#fil").val();
+                    console.log(selVal + " = log");
+                    if (selVal == "byDateRange") {
+                        console.log(selVal + " = log inside");
+                        $("#filterVal2").show();
+                        $("#filterVal").show();
+
+                    }
+                    if (selVal == "byQty") {
+                        console.log(selVal + " = log inside");
+                        $("#reportChart6").show();
+                        $("#reportChart5").hide();
+
+                    }
+                    if (selVal == "byAmt") {
+                        console.log(selVal + " = log inside");
+                        $("#reportChart5").show();
+                        $("#reportChart6").hide();
+
+                    }
+                });
+            });
+        </script>-->
     </head>
     <s:url var="url_css" value="/static/css/style.css"/>
     <link href="${url_css}" rel="stylesheet" type="text/css"/>
@@ -105,7 +135,6 @@
         </c:forEach>
                         ]
                 },
-               
                 ]
         };
         ///////next ROW Daily Sale
@@ -135,7 +164,7 @@
                         legendText: "Petrol",
                         dataPoints: [
         <c:forEach var="c" items="${pDayList}" varStatus="st">
-                        {label: "${c.year}-" + "${c.month}-"+${c.day}, y: ${c.total}},
+                        {label: "${c.year}-" + "${c.month}-" +${c.day}, y: ${c.total}},
         </c:forEach>
 
                         ]
@@ -148,7 +177,7 @@
                         legendText: "Diesel",
                         dataPoints: [
         <c:forEach var="c" items="${dDayList}" varStatus="st">
-                        {label: "${c.year}-" + "${c.month}-"+${c.day}, y: ${c.total}},
+                        {label: "${c.year}-" + "${c.month}-" +${c.day}, y: ${c.total}},
         </c:forEach>
                         ]
                 },
@@ -183,7 +212,7 @@
                         legendText: "Petrol",
                         dataPoints: [
         <c:forEach var="c" items="${pDayList}" varStatus="st">
-                        {label: "${c.year}-" + "${c.month}-"+${c.day}, y: ${c.qty}},
+                        {label: "${c.year}-" + "${c.month}-" +${c.day}, y: ${c.qty}},
         </c:forEach>
 
                         ]
@@ -196,17 +225,82 @@
                         legendText: "Diesel",
                         dataPoints: [
         <c:forEach var="c" items="${dDayList}" varStatus="st">
-                        {label: "${c.year}-" + "${c.month}-"+${c.day}, y: ${c.qty}},
+                        {label: "${c.year}-" + "${c.month}-" +${c.day}, y: ${c.qty}},
         </c:forEach>
                         ]
                 },
 //                
                 ]
         };
+//        pie total sale
+        var pSale = {
+        exportEnabled: true,
+        title: {
+        text: "Net Sale Amount"
+        },
+               
+                legend: {
+                cursor: "pointer",
+//		itemclick: toggleDataSeries
+                },
+                subtitles: [{
+                text: "Total Budget"
+                }],
+                animationEnabled: true,
+                theme: "light",
+                data: [
+                {
+                //dataSeries - first quarter
+                /*** Change type "column" to "bar", "area", "line" or "pie"***/
+                type: "pie",
+                        showInLegend: "true",
+                        toolTipContent: "{name}: <strong>{y}</strong>",
+                        indexLabel: "{name} - {y}Rs.",
+                        dataPoints: [
+        <c:forEach var="c" items="${pNetSale}" varStatus="st">
+                        {y: ${c.total}, name: "${c.fuel}"},
+                        
+        </c:forEach>
+
+                ]
+                }
+
+                ]
+        };
+        var dSale = {
+        exportEnabled: true,
+                animationEnabled: true,
+                legend:{
+                cursor: "pointer",
+                },
+                title: {
+                text: "Net Sale Qty"
+                },
+                subtitles: [{
+                text: "Total Budget"
+                }],
+                
+                theme: "light",
+                data: [
+                {
+                type: "pie",
+                        showInLegend: "true",
+                        toolTipContent: "{name}: <strong>{y}</strong>",
+                        indexLabel: "{name} - {y}",
+                        dataPoints: [
+        <c:forEach var="c" items="${pNetSale}" varStatus="st">
+                        {y: ${c.qty}, name: "${c.fuel}"},
+        </c:forEach>
+                        ]
+                },
+                ]
+        };
         $("#reportChart").CanvasJSChart(mAmtWise);
         $("#reportChart2").CanvasJSChart(mQtyWise);
         $("#reportChart3").CanvasJSChart(dAmtWise);
         $("#reportChart4").CanvasJSChart(dQtyWise);
+        $("#reportChart5").CanvasJSChart(pSale);
+        $("#reportChart6").CanvasJSChart(dSale);
         }
     </script>
     <s:url var="url_bg" value="/static/images/bg.jpg"/>
@@ -230,6 +324,14 @@
                     <table border width="100%" align="center">
                         <tr>
                             <td>
+                                <div id="reportChart5" style="width: 100%; height: 300px;display: inline-block;"></div>
+                            </td>
+                            <td>
+                                <div id="reportChart6" style="width: 100%; height: 300px;display: inline-block;"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <div id="reportChart" style="width: 100%; height: 300px;display: inline-block;"></div>
                             </td>
                             <td>
@@ -243,6 +345,21 @@
                             <td>
                                 <div id="reportChart4" style="width: 100%; height: 300px;display: inline-block;"></div>
                             </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <form action="<s:url value="/netSale_filter"/>">
+                                    
+                                    <label>By Date Range</label>    
+                                    <input id="filterVal" type="date" name="val" value="${param.val}"/>
+                                    <input id="filterVal2" type="date" name="val2" value="${param.val2}"/>
+                                    <button>Filter</button>
+                                </form>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
                         </tr>
                     </table>
                 </td>

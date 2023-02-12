@@ -21,7 +21,7 @@ public interface OrderService {
 
     public List<Order> findAll();
     public List<Order> findByProperty(String propName, Object propValue);
-
+    
     public List<Order> findByDate(Date date, Date date1);
 
     public List<Order> findByDay(Date date);
