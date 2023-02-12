@@ -9,43 +9,13 @@
         <title>Analysis Report</title>
         <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>  
         <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-<!--        <script>
-            $(document).ready(function () {
-                $("#filterVal2").hide();
-                $("#filterVal").hide();
-                $("#reportChart6").hide();
-                $("#reportChart5").hide();
-                $("#fil").click(function () {
-                    var selVal = $("#fil").val();
-                    console.log(selVal + " = log");
-                    if (selVal == "byDateRange") {
-                        console.log(selVal + " = log inside");
-                        $("#filterVal2").show();
-                        $("#filterVal").show();
-
-                    }
-                    if (selVal == "byQty") {
-                        console.log(selVal + " = log inside");
-                        $("#reportChart6").show();
-                        $("#reportChart5").hide();
-
-                    }
-                    if (selVal == "byAmt") {
-                        console.log(selVal + " = log inside");
-                        $("#reportChart5").show();
-                        $("#reportChart6").hide();
-
-                    }
-                });
-            });
-        </script>-->
     </head>
     <s:url var="url_css" value="/static/css/style.css"/>
     <link href="${url_css}" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
 
         window.onload = function () {
-
+        var addAv = 0;
         var mAmtWise = {
         title: {
         text: "Monthly Report By Amount"
@@ -86,6 +56,23 @@
                         dataPoints: [
         <c:forEach var="c" items="${dMonthList}" varStatus="st">
                         {label: "${c.year}-" + "${c.month}", y: ${c.total}},
+        </c:forEach>
+                        ]
+                },
+                {
+
+                type: "line",
+                        name: "Average Sale",
+                        showInLegend: "true",
+                        legendText: "Average Sale",
+                        indexLabelFontSize: 16,
+                        dataPoints: [
+        <c:set var="avgTotal" value="${0}" />
+        <c:forEach var="c" items="${dMonthList}" varStatus="st">
+//            
+//          <c:set var="avgTotal" value="${avgTotal + c.total}" />
+
+                        {y: ${avgTotal/st.count}},
         </c:forEach>
                         ]
                 },
@@ -135,6 +122,23 @@
         </c:forEach>
                         ]
                 },
+                {
+
+                type: "line",
+                        name: "Average Sale",
+                        showInLegend: "true",
+                        legendText: "Average Sale",
+                        indexLabelFontSize: 16,
+                        dataPoints: [
+        <c:set var="avgTotal" value="${0}" />
+        <c:forEach var="c" items="${dMonthList}" varStatus="st">
+//            
+//          <c:set var="avgTotal" value="${avgTotal + c.qty}" />
+
+                        {y: ${avgTotal/st.count}},
+        </c:forEach>
+                        ]
+                },
                 ]
         };
         ///////next ROW Daily Sale
@@ -181,7 +185,23 @@
         </c:forEach>
                         ]
                 },
-//                
+                {
+
+                type: "line",
+                        name: "Average Sale",
+                        showInLegend: "true",
+                        legendText: "Average Sale",
+                        indexLabelFontSize: 16,
+                        dataPoints: [
+        <c:set var="avgTotal" value="${0}" />
+        <c:forEach var="c" items="${dDayList}" varStatus="st">
+//            
+//          <c:set var="avgTotal" value="${avgTotal + c.total}" />
+
+                        {y: ${avgTotal/st.count}},
+        </c:forEach>
+                        ]
+                },
                 ]
         };
         //// next chart for quantity wise
@@ -229,16 +249,31 @@
         </c:forEach>
                         ]
                 },
-//                
+                {
+
+                type: "line",
+                        name: "Average Sale",
+                        showInLegend: "true",
+                        legendText: "Average Sale",
+                        indexLabelFontSize: 16,
+                        dataPoints: [
+        <c:set var="avgTotal" value="${0}" />
+        <c:forEach var="c" items="${dDayList}" varStatus="st">
+//            
+//          <c:set var="avgTotal" value="${avgTotal + c.qty}" />
+
+                        {y: ${avgTotal/st.count}},
+        </c:forEach>
+                        ]
+                },
                 ]
         };
 //        pie total sale
         var pSale = {
         exportEnabled: true,
-        title: {
-        text: "Net Sale Amount"
-        },
-               
+                title: {
+                text: "Net Sale Amount"
+                },
                 legend: {
                 cursor: "pointer",
 //		itemclick: toggleDataSeries
@@ -259,10 +294,9 @@
                         dataPoints: [
         <c:forEach var="c" items="${pNetSale}" varStatus="st">
                         {y: ${c.total}, name: "${c.fuel}"},
-                        
         </c:forEach>
 
-                ]
+                        ]
                 }
 
                 ]
@@ -279,7 +313,6 @@
                 subtitles: [{
                 text: "Total Budget"
                 }],
-                
                 theme: "light",
                 data: [
                 {
@@ -349,14 +382,14 @@
                         <tr>
                             <td colspan="2">
                                 <form action="<s:url value="/netSale_filter"/>">
-                                    
+
                                     <label>By Date Range</label>    
                                     <input id="filterVal" type="date" name="val" value="${param.val}"/>
                                     <input id="filterVal2" type="date" name="val2" value="${param.val2}"/>
                                     <button>Filter</button>
                                 </form>
                             </td>
-                            
+
                         </tr>
                         <tr>
                             <td></td>
