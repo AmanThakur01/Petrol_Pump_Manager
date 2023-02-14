@@ -27,15 +27,14 @@ public class OrderController {
     @Autowired
     FuelService fuelService;
 
-    
     @RequestMapping(value = {"/order"})
     public String order(@ModelAttribute("command") OrderCommand cmd, Model m) {
 
         Integer qty;
         Order order = new Order();
 
-        Fuel f = fuelService.findById(cmd.getFuelid());
         try {
+            Fuel f = fuelService.findById(cmd.getFuelid());
             order.setFuelId(cmd.getFuelid());
             order.setRate(f.getRate());
             if ("amount".equals(cmd.getByType())) {
@@ -63,8 +62,6 @@ public class OrderController {
             System.out.println("f.getAvaliablesize() : " + f.getAvaliablesize());
             fuelService.update(f);
             orderService.save(order);
-//            String res ="Thanks For REFUELING";
-//            m.addAttribute("filled",res);
             return "redirect:index?act=sv";
 
         } catch (Exception e) {
@@ -108,44 +105,41 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/order_filter")
-    public String expenseFilter(@RequestParam("filter") String filter, @RequestParam("val") String val,@RequestParam("val2") String val2, Model m) {
-        System.out.println("filter = " + filter);
-        System.out.println("val = " + val);
-        System.out.println("val2 = " + val2);
-        if ("byFuel".equals(filter)) {
-            List<Order> l = orderService.findByProperty("fuelid", ("petrol".equals(val.toLowerCase())) ? 1 : 2);
-            System.out.println("l cate = " + l);
-            for (Order order : l) {
-                System.out.println("order = " + order.getDate());
+    public String expenseFilter(@RequestParam("filter") String filter, @RequestParam("val") String val, @RequestParam("val2") String val2, Model m) {
+        try {
+            if ("byFuel".equals(filter)) {
+                List<Order> l = orderService.findByProperty("fuelid", ("petrol".equals(val.toLowerCase())) ? 1 : 2);
+                System.out.println("l cate = " + l);
+                for (Order order : l) {
+                    System.out.println("order = " + order.getDate());
 
+                }
+                m.addAttribute("orderList", l);
+
+            } else if ("byDateRange".equals(filter)) {
+                List<Order> l = orderService.findByDate(Date.valueOf(val), Date.valueOf(val2));
+                System.out.println("l cate = " + l);
+                for (Order order : l) {
+                    System.out.println("order = " + order.getDate());
+
+                }
+                m.addAttribute("orderList", l);
+
+            } else {
+                List<Order> l = orderService.findByProperty("date", val);
+                m.addAttribute("orderList", l);
+                System.out.println("l date = " + l);
+                for (Order order : l) {
+                    System.out.println("order = " + order.getDate());
+
+                }
+                m.addAttribute("expenseList", l);
             }
-            m.addAttribute("orderList", l);
-
-        }
-        else if ("byDateRange".equals(filter)) {
-            List<Order> l = orderService.findByDate(Date.valueOf(val),Date.valueOf(val2));
-            System.out.println("l cate = " + l);
-            for (Order order : l) {
-                System.out.println("order = " + order.getDate());
-
-            }
-            m.addAttribute("orderList", l);
-
-        }
-        
-        else {
-            List<Order> l = orderService.findByProperty("date", val);
-            m.addAttribute("orderList", l);
-            System.out.println("l date = " + l);
-            for (Order order : l) {
-                System.out.println("order = " + order.getDate());
-
-            }
-            m.addAttribute("expenseList", l);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "/order_report";
         }
         return "/order_report";
     }
-    
-    
-    
+
 }

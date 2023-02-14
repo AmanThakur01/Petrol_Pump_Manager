@@ -12,7 +12,6 @@ public interface OrderService {
 
     public void save(Order o);
 
-//    public void update(Order o);
     public void delete(Integer oId);
 
     public void delete(Integer[] oIds);

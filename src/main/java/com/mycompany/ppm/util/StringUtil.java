@@ -2,7 +2,6 @@ package com.mycompany.ppm.util;
 
 /**
  * This class contains utility methods related to String Operations.
- * @author Vikram
  */
 public class StringUtil {
     public static String toCommaSeparatedString(Object[] items){

@@ -25,7 +25,6 @@
                 },
                 legend: {
                 cursor: "pointer",
-//		itemclick: toggleDataSeries
                 },
                 subtitles: [{
                 text: "Total Budget"
@@ -69,9 +68,7 @@
                         dataPoints: [
         <c:set var="avgTotal" value="${0}" />
         <c:forEach var="c" items="${dMonthList}" varStatus="st">
-//            
-//          <c:set var="avgTotal" value="${avgTotal + c.total}" />
-
+          <c:set var="avgTotal" value="${avgTotal + c.total}" />
                         {y: ${avgTotal/st.count}},
         </c:forEach>
                         ]
@@ -97,8 +94,6 @@
                 theme: "light",
                 data: [
                 {
-                //dataSeries - first quarter
-                /*** Change type "column" to "bar", "area", "line" or "pie"***/
                 type: "column",
                         name: "Petrol Amount",
                         showInLegend: "true",
@@ -107,7 +102,6 @@
         <c:forEach var="c" items="${dMonthList}" varStatus="st">
                         {label: "${c.year}-" + "${c.month}", y: ${c.qty}},
         </c:forEach>
-
                         ]
                 },
                 {
@@ -132,8 +126,7 @@
                         dataPoints: [
         <c:set var="avgTotal" value="${0}" />
         <c:forEach var="c" items="${dMonthList}" varStatus="st">
-//            
-//          <c:set var="avgTotal" value="${avgTotal + c.qty}" />
+          <c:set var="avgTotal" value="${avgTotal + c.qty}" />
 
                         {y: ${avgTotal/st.count}},
         </c:forEach>
@@ -151,7 +144,6 @@
                 },
                 legend: {
                 cursor: "pointer",
-//		itemclick: toggleDataSeries
                 },
                 subtitles: [{
                 text: "Total Budget"
@@ -160,8 +152,6 @@
                 theme: "light",
                 data: [
                 {
-                //dataSeries - first quarter
-                /*** Change type "column" to "bar", "area", "line" or "pie"***/
                 type: "column",
                         name: "Petrol Amount",
                         showInLegend: "true",
@@ -195,8 +185,7 @@
                         dataPoints: [
         <c:set var="avgTotal" value="${0}" />
         <c:forEach var="c" items="${dDayList}" varStatus="st">
-//            
-//          <c:set var="avgTotal" value="${avgTotal + c.total}" />
+          <c:set var="avgTotal" value="${avgTotal + c.total}" />
 
                         {y: ${avgTotal/st.count}},
         </c:forEach>
@@ -215,7 +204,6 @@
                 },
                 legend: {
                 cursor: "pointer",
-//		itemclick: toggleDataSeries
                 },
                 subtitles: [{
                 text: "Total Budget"
@@ -224,8 +212,6 @@
                 theme: "light",
                 data: [
                 {
-                //dataSeries - first quarter
-                /*** Change type "column" to "bar", "area", "line" or "pie"***/
                 type: "column",
                         name: "Petrol Amount",
                         showInLegend: "true",
@@ -259,8 +245,7 @@
                         dataPoints: [
         <c:set var="avgTotal" value="${0}" />
         <c:forEach var="c" items="${dDayList}" varStatus="st">
-//            
-//          <c:set var="avgTotal" value="${avgTotal + c.qty}" />
+          <c:set var="avgTotal" value="${avgTotal + c.qty}" />
 
                         {y: ${avgTotal/st.count}},
         </c:forEach>
@@ -285,8 +270,6 @@
                 theme: "light",
                 data: [
                 {
-                //dataSeries - first quarter
-                /*** Change type "column" to "bar", "area", "line" or "pie"***/
                 type: "pie",
                         showInLegend: "true",
                         toolTipContent: "{name}: <strong>{y}</strong>",

@@ -19,9 +19,6 @@ public class Sales{
     public void setFuel(String fuel) {
         this.fuel = fuel;
     }
-
-    
-
     public String getDay() {
         return day;
     }

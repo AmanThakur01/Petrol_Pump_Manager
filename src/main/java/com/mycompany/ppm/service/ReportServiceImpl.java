@@ -2,10 +2,8 @@
 package com.mycompany.ppm.service;
 
 import com.mycompany.ppm.dao.BaseDAO;
-import com.mycompany.ppm.domain.Order;
 import com.mycompany.ppm.domain.Sales;
 import com.mycompany.ppm.rm.MonthelySaleMapper;
-import com.mycompany.ppm.rm.OrderRowMapper;
 import com.mycompany.ppm.rm.TotalSaleMapper;
 import java.sql.Date;
 import java.util.List;

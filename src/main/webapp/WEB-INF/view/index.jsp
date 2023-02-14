@@ -72,7 +72,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">  
-                                    <f:input path="value" placeholder="Enter Your Digits"/>
+                                    <f:input path="value" placeholder="Enter Your Digits" type="number"/>
                                 </td>
                             </tr>
                             <tr>

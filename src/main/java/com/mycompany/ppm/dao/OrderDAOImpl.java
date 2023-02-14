@@ -20,19 +20,7 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
     @Override
     public void save(Order o) {
         String sql = "INSERT INTO `order` (`quantity`, `rate`, `total`, `fuelid`) VALUES ('"+o.getQty()+"', '"+o.getRate()+"', '"+o.getTotal()+"','"+o.getFuelId()+"');";
-//        Map m = new HashMap();
-//        m.put("date", o.getDate());
-//        m.put("quantity",o.getQty());
-//        m.put("rate", o.getRate());
-//        m.put("total", o.getTotal());
-//        m.put("fuelid", o.getFuelId());
-
-//        SqlParameterSource ps = new MapSqlParameterSource(m);
-//        KeyHolder kh = new GeneratedKeyHolder();
         getJdbcTemplate().update(sql);
-//        Integer oid = kh.getKey().intValue();
-//        o.setOrderId(oid);
-
     }
 
     @Override
@@ -44,7 +32,6 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
                 + " fuelid=:fuelid"
                 + " WHERE orderid=:orderid";
         Map m = new HashMap();
-//        m.put("date", o.getDate());
         m.put("quantity", o.getQty());
         m.put("rate", o.getRate());
         m.put("total", o.getTotal());
@@ -81,7 +68,4 @@ public class OrderDAOImpl extends BaseDAO implements OrderDAO {
         String sql = "SELECT `orderid`, `date`, `quantity`, `rate`, `total`, `fuelid` FROM `order` WHERE (`" + propName + "` LIKE '%"+propValue+"%') ";
         return getJdbcTemplate().query(sql, new OrderRowMapper());
     }
-
-    
-
 }

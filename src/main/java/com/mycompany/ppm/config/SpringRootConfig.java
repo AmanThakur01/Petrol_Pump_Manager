@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = {"com.mycompany.ppm.dao", "com.mycompany.ppm.service"})
 public class SpringRootConfig {
 
-    //TODO: Services, DAO, DataSource, Email Sender or some other business layer beans   
     @Bean
     public BasicDataSource getDataSource() {
         BasicDataSource ds = new BasicDataSource();
