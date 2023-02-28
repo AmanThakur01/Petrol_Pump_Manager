@@ -9,13 +9,41 @@ import java.util.List;
  */
 public interface FuelService {
 
-    public void save(Fuel u);
+    /**
+	 * This method will Save Fuel Which will be Sale
+	 * 
+	 * @param f conatin fuel name,max,min, available level rate
+	 */
+	public void save(Fuel f);
 
-    public void update(Fuel u);
+	/**
+	 * This method Update Fuel Rate and Quantity while container is refueling
+	 * 
+	 * @param f contain new value of rate and refueling quantity
+	 */
+	public void update(Fuel f);
 
-    public void delete(Integer id);
+	/**
+	 * This Method Delete Fuel By its FuelId
+	 * 
+	 * @param id
+	 */
+	public void delete(Integer id);
 
-    public List<Fuel> findAll();
+	/**
+	 * This method get all type fuel present
+	 * 
+	 * @return retuen all fuel in a list
+	 */
 
-    public Fuel findById(Integer id);
+	public List<Fuel> findAll();
+
+	/**
+	 * This method find fuel by its fuel id
+	 * 
+	 * @param id
+	 * @return return fuel container data
+	 */
+
+	public Fuel findById(Integer id);
 }

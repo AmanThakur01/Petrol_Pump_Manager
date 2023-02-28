@@ -1,7 +1,6 @@
 package com.mycompany.ppm.dao;
 
 import com.mycompany.ppm.domain.Order;
-import com.mycompany.ppm.domain.Sales;
 import java.util.List;
 
 /**
